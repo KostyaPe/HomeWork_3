@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function declension(age) {
+            const ageToNumber = +age;
+
+            if (ageToNumber < 10) {
+                if (ageToNumber === 1) {
+                    return `${ageToNumber} год.`
+                } else if (ageToNumber > 0 && ageToNumber <= 4) {
+                    return `${ageToNumber} годa.`
+                } else {
+                    return `${ageToNumber} лет.`;
+                }
+
+            } else if (ageToNumber <= 20) {
+                return `${ageToNumber} лет.`;
+            } else {
+                let lastUserAgeDigit = userAge % 10;
+
+                if (lastUserAgeDigit === 1) {
+                    return `${ageToNumber} год.`
+                } else if (lastUserAgeDigit > 0 && lastUserAgeDigit <= 4) {
+                    return `${ageToNumber} годa.`
+                } else {
+                    return `${ageToNumber} лет.`;
+                }
+            }
+        }
+
+        let userAge = prompt('What is your age?');
+
+        alert(declension(userAge));
+
+        /*
+        false && true || true   - первый логический оператор вернет false, потом ИЛИ вернёт true, т.к одно из выражений - true
+        false && (true || true); - результат выражения справа - true, результат & - false
+        '10' + (5 === 6); результат выражения в группировке - false, потом неявное преобразования false к строке, затем конкатенация - '10false'
+        '10' - 5 === 6; у строгого сравнения приоритет ниже, чем у вычитания, результат - false, т.к 5 !== 6
+        (+null == false) < 1; неявное преобразование null в число (0), далее нестрогое сравнение численно преобразует false и сравнит, true < 1 = false
+        (+null == false) < 1 ** 5; результат - false
+        undefined + 5 > null + 1; NaN > null, результат -  (false)
+        */
+    </script>
+</body>
+
+</html>
