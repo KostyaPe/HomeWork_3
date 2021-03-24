@@ -16,7 +16,7 @@
             if (ageToNumber < 10) {
                 if (ageToNumber === 1) {
                     return `${ageToNumber} год.`
-                } else if (ageToNumber > 0 && ageToNumber <= 4) {
+                } else if (ageToNumber >= 2 && ageToNumber <= 4) {
                     return `${ageToNumber} годa.`
                 } else {
                     return `${ageToNumber} лет.`;
@@ -29,7 +29,7 @@
 
                 if (lastUserAgeDigit === 1) {
                     return `${ageToNumber} год.`
-                } else if (lastUserAgeDigit > 0 && lastUserAgeDigit <= 4) {
+                } else if (lastUserAgeDigit >= 2 && lastUserAgeDigit <= 4) {
                     return `${ageToNumber} годa.`
                 } else {
                     return `${ageToNumber} лет.`;
