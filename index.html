@@ -17,10 +17,7 @@
                     return `${age} год.`
                 } else if (age >= 2 && age <= 4) {
                     return `${age} годa.`
-                } else {
-                    return `${age} лет.`;
                 }
-
             } else if (age <= 20) {
                 return `${age} лет.`;
             } else {
@@ -30,10 +27,10 @@
                     return `${age} год.`
                 } else if (lastUserAgeDigit >= 2 && lastUserAgeDigit <= 4) {
                     return `${age} годa.`
-                } else {
-                    return `${age} лет.`;
                 }
             }
+
+            return `${age} лет.`;
         }
 
         let userAge = +prompt('What is your age?');
