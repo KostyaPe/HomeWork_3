@@ -11,33 +11,32 @@
 <body>
     <script>
         function declension(age) {
-            const ageToNumber = +age;
 
-            if (ageToNumber < 10) {
-                if (ageToNumber === 1) {
-                    return `${ageToNumber} год.`
-                } else if (ageToNumber >= 2 && ageToNumber <= 4) {
-                    return `${ageToNumber} годa.`
+            if (age < 10) {
+                if (age === 1) {
+                    return `${age} год.`
+                } else if (age >= 2 && age <= 4) {
+                    return `${age} годa.`
                 } else {
-                    return `${ageToNumber} лет.`;
+                    return `${age} лет.`;
                 }
 
-            } else if (ageToNumber <= 20) {
-                return `${ageToNumber} лет.`;
+            } else if (age <= 20) {
+                return `${age} лет.`;
             } else {
-                let lastUserAgeDigit = userAge % 10;
+                let lastUserAgeDigit = age % 10;
 
                 if (lastUserAgeDigit === 1) {
-                    return `${ageToNumber} год.`
+                    return `${age} год.`
                 } else if (lastUserAgeDigit >= 2 && lastUserAgeDigit <= 4) {
-                    return `${ageToNumber} годa.`
+                    return `${age} годa.`
                 } else {
-                    return `${ageToNumber} лет.`;
+                    return `${age} лет.`;
                 }
             }
         }
 
-        let userAge = prompt('What is your age?');
+        let userAge = +prompt('What is your age?');
 
         alert(declension(userAge));
 
