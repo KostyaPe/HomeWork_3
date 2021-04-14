@@ -2,32 +2,32 @@ function camelize(str) {
     return str.map(e => e.split('-').map((e, i) => i > 0 ? e[0].toUpperCase() + e.slice(1) : e).join(''));
 }
 
-Array.prototype.myMap = function (callback) {
-    const arr = [];
+function map(arr, callback) {
+    const newArr = [];
 
-    for (let i = 0; i < this.length; i++) {
-        arr.push(callback(this[i], i, this));
+    for (let i = 0; i < arr.length; i++) {
+        newArr.push(callback(arr[i], i, arr));
     }
 
-    return arr;
-};
+    return newArr;
+}
 
-Array.prototype.myFilter = function (callback) {
-    const arr = [];
+function filter(arr, callback) {
+    const newArr = [];
 
-    for (let i = 0; i < this.length; i++) {
-        if (callback(this[i], i, this)) {
-            arr.push(this[i])
+    for (let i = 0; i < arr.length; i++) {
+        if (callback(arr[i], i, arr)) {
+            newArr.push(arr[i]);
         }
     }
 
-    return arr;
-};
+    return newArr;
+}
 
-const mappedArr = [1,2,3,4].myMap(function (el) {
-    return el + 2;
+const mappedArr = map([1,2,3,4], function(i) {
+    return i + 2;
 });
 
-const filtredArr = [1,2,3,4].myFilter(function (el) {
-    return el > 2;
+const filtredrArr = filter([1,2,3,4], function(i) {
+    return i > 2;
 });
