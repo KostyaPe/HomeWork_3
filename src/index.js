@@ -14,7 +14,7 @@ function createCounter(initValue, step) {
 
     const counter = () => count += step;
 
-    counter.clear = () => count = 0;
+    counter.clear = () => count = initValue;
 
     return counter;
 }
