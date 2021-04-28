@@ -1,13 +1,12 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-magic-numbers */
 
-Function.prototype.customBind = function (context) {
-    const funcToBound = this;
 
+function customBind(func, context, ...args) {
     return function () {
-        return funcToBound.call(context, ...arguments);
+        return func.call(context, ...args);
     };
-};
-
+}
 const obj = {
     name: 'Kostya',
     a: 5,
@@ -18,4 +17,4 @@ function foo (c, d) {
     return (this.a + this.b + c + d);
 }
 
-const boundedFoo = foo.customBind(obj);
+const boundedFoo = customBind(foo, obj, 1, 2);
