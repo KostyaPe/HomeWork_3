@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-magic-numbers */
 
-
 function customBind(func, context, ...args) {
     return function () {
-        return func.call(context, ...args);
+        return func.call(context, ...args , ...arguments);
     };
 }
 const obj = {
