@@ -7,7 +7,7 @@ function findPalindrome(num) {
 
     if (num === reversedNum) {
         return {
-            num,
+            result: num,
             steps: findPalindrome.steps || 1,
         };
     }
