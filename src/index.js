@@ -6,9 +6,12 @@ function findPalindrome(num) {
     findPalindrome.steps ??= 0;
 
     if (num === reversedNum) {
+        const steps = findPalindrome.steps || 1;
+        findPalindrome.steps = 0;
+
         return {
             result: num,
-            steps: findPalindrome.steps || 1,
+            steps,
         };
     }
 
