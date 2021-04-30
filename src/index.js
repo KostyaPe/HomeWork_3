@@ -1,24 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-magic-numbers */
 
-function findPalindrome(num) {
+function findPalindrome(num, steps = 0) {
     const reversedNum = +num.toString().split('').reverse().join('');
-    findPalindrome.steps ??= 0;
+    let currentStep = steps;
 
     if (num === reversedNum) {
-        const steps = findPalindrome.steps || 1;
-        findPalindrome.steps = 0;
-
         return {
             result: num,
-            steps,
+            steps: currentStep,
         };
     }
 
-    findPalindrome.steps++;
-
     try {
-        return findPalindrome(num + reversedNum);
+        return findPalindrome(num + reversedNum, ++currentStep);
     } catch (e) {
         throw new Error(`${num} - is Lycher number.`);
     }
