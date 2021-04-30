@@ -3,7 +3,7 @@
 
 function findPalindrome(num) {
     const reversedNum = +num.toString().split('').reverse().join('');
-    findPalindrome.steps = findPalindrome.steps ?? 0;
+    findPalindrome.steps ??= 0;
 
     if (num === reversedNum) {
         return {
