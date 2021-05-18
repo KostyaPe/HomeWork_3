@@ -11,20 +11,19 @@ toggleClass(document.querySelector('.box.shadow'), 'qwe');
 
 function fillForm(params) {
     const data = Object.fromEntries(params.replace('?', '').split('&').map(el => el.split('=')));
-    const form = document.querySelector('#reg-form');
+    const $inputs = document.querySelector('#reg-form').elements;
+
+    data.email = decodeURIComponent(data.email);
 
     for (const field in data) {
-        if (field === 'email') {
-            data[field] = decodeURIComponent(data[field]); // decodeURI не работает :(
-            form.elements[field].value = data[field];
+        if ($inputs[field]) {
+            if ($inputs[field].type === 'checkbox') {
+                $inputs[field].checked = data[field] === 'true' ? true : false;
+            } else {
+                $inputs[field].value = data[field];
+            }
         }
-
-        if (field === 'terms') {
-            form.elements[field].checked = data[field] === 'true' ? true : false;
-        }
-
-        form.elements[field].value = data[field];
     }
 }
 
-fillForm('?name=Kostya&email=johndoe%40mail.com&city=Odessa&gender=1&terms=false');
+fillForm('?name=Kostya&email=johndoe%40mail.com&city=Odessa&gender=1&terms=true&');
