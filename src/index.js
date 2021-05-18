@@ -20,7 +20,7 @@ function fillForm(params) {
         }
 
         if (field === 'terms') {
-            form.elements[field].checked = String(data[field]) === 'true' ? true : false;
+            form.elements[field].checked = Boolean(data[field]) ? true : false;
         }
 
         form.elements[field].value = data[field];
