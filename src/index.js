@@ -20,11 +20,11 @@ function fillForm(params) {
         }
 
         if (field === 'terms') {
-            form.elements[field].checked = data[field];
+            form.elements[field].checked = String(data[field]) === 'true' ? true : false;
         }
 
         form.elements[field].value = data[field];
     }
 }
 
-fillForm('?name=Kostya&email=johndoe%40mail.com&city=Odessa&gender=2&terms=true');
+fillForm('?name=Kostya&email=johndoe%40mail.com&city=Odessa&gender=1&terms=true');
