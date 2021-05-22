@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hillel home work</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
+
+        .tabs {
+            max-width: 400px;
+            margin: 10px auto;
+        }
+
+        .tabs__buttons button.active {
+            font-weight: bold;
+        }
+
+        .tabs__buttons button {
+            border-right: 1px solid grey;
+        }
+
+        .tabs__content p {
+            display: none;
+        }
+
+        .tabs__content p.active {
+            display: block;
+        }
+        
+        .tabs__buttons,
+        .tabs__content {
+            margin: 0;
+            border: 1px solid grey;
+        }
+
+        .tabs__content {
+            border-top: none;
+            padding: 10px;
+        }
+
+        .tabs__buttons:empty,
+        .tabs__content:empty {
+            border: none;
+        }
+
+        .addTab {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 100px;
+        }
+
+        .addTab * {
+            width: 100%;
+            max-width: 400px;
+            padding: 8px 5px;
+            margin-bottom: 10px;
+            border: 1px solid grey;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="tabs">
+        <div class="tabs__buttons"></div>
+        <div class="tabs__content"></div>
+    </div>
+    <form action="" class="addTab">
+        <input
+            type="text"
+            name="title"
+            placeholder="Tab title">
+        <textarea 
+            oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'
+            name="content"
+            placeholder="Tab content"></textarea>
+        <button type="submit">Add new tab</button>
+    </form>
+    <script src="index.js"></script>
+</body>
+
+</html>
