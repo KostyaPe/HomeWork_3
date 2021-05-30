@@ -1,48 +1,54 @@
 'use strict';
 /* eslint-disable no-magic-numbers */
+/*eslint-disable no-undef*/
 
-const $addTab = document.querySelector('.addTab');
-const $tabsContainer = document.querySelector('.tabs__buttons');
-const $contentContainer = document.querySelector('.tabs__content');
-const $tabs = $tabsContainer.children;
-const $content = $contentContainer.children;
+const colors = ['blue', 'red', 'green', 'pink', 'purple', 'cyan', 'tomato', 'grey', 'fuchsia', 'navy', 'darkmagenta'];
 
-
-function renderTab (title, content) {
-    const $newTab = document.createElement('button');
-    const $newContent = document.createElement('p');
-
-    $newTab.textContent = title;
-    $newTab.dataset.id = $tabs.length;
-    $newContent.textContent = content;
-
-    $tabsContainer.append($newTab);
-    $contentContainer.append($newContent);
+function getRandomColor() {
+    return colors[Math.floor((Math.random() * (colors.length - 0)) + 0)];
 }
 
-function setActive (index = 0) {
-    for (let i = 0; i < $tabs.length; i++) {
-        if (i === +index) {
-            $tabs[i].classList.add('active');
-            $content[i].classList.add('active');
-        } else {
-            $tabs[i].classList.remove('active');
-            $content[i].classList.remove('active');
-        }
-    }
-}
+$('.counter').on('click', 'button', function () {
+    const count = $(this).siblings('.count');
+    const result = +count.text() + ($(this).hasClass('plus') ? 1 : -1);
 
-$addTab.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const title = this.children.title.value;
-    const content = this.children.content.value;
-
-    if (title.length > 0 && content.length > 0) {
-        renderTab(title, content);
-        setActive();
-        this.reset();
-    }
+    count.text(result > 0 ? result : 0);
 });
 
-$tabsContainer.addEventListener('click', (e) => setActive(e.target.dataset.id));
+$('.square').css('background-color', () => getRandomColor());
+
+$('.squares').on('click', '.square', function() {
+    $(this).css('background-color', getRandomColor());
+
+    const cloned = $(this).clone();
+
+    $(this).remove();
+    $('.square').last().after(cloned);
+});
+
+$('.addTab').on('submit', function(e) {
+    e.preventDefault();
+
+    const $inputs = $(`.${this.className} :input`);
+    const tabs = $('.tabs button').length;
+    const $title = $('<button></button>', {['data-target']: `#content_${tabs}`,}).text($($inputs[0]).val());
+    const $content = $('<p></p>', {id: `content_${tabs}`}).text($($inputs[1]).val());
+
+    if ($title.text() && $content.text()) {
+        $('.tabs__buttons').append($title);
+        $('.tabs__content').append($content);
+    }
+
+    if ($('.tabs__buttons button').length === 1) {
+        $('.tabs__content p').addClass('active');
+    }
+
+    $inputs.val('');
+});
+
+$('.tabs__buttons').on('click', 'button', function() {
+    const content = $(this).data().target;
+
+    $('.tabs__content p').removeClass('active');
+    $(content).addClass('active');
+});
