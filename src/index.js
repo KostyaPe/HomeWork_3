@@ -1,54 +1,52 @@
 'use strict';
 /* eslint-disable no-magic-numbers */
-/*eslint-disable no-undef*/
 
-const colors = ['blue', 'red', 'green', 'pink', 'purple', 'cyan', 'tomato', 'grey', 'fuchsia', 'navy', 'darkmagenta'];
+function createObject(props) {
+    return props
+        .reduce((prev, item) => {
 
-function getRandomColor() {
-    return colors[Math.floor((Math.random() * (colors.length - 0)) + 0)];
+            Object.defineProperty(prev, item[0], {
+                value: item[1],
+                writable: item[2],
+                enumerable: item[3],
+                configurable: item[4],
+            });
+
+            return prev;
+        }, {});
 }
 
-$('.counter').on('click', 'button', function () {
-    const count = $(this).siblings('.count');
-    const result = +count.text() + ($(this).hasClass('plus') ? 1 : -1);
+const obj = createObject([
+    ['name', 'kostya', true, false, true],
+    ['age', 22, true, true, true],
+    ['gender', 'm', false, true, true] ]
+);
 
-    count.text(result > 0 ? result : 0);
-});
+obj.gender = 'f';
 
-$('.square').css('background-color', () => getRandomColor());
+function createStudent(firstName, lastName, birthdate) {
+    return {
+        firstName,
+        lastName,
+        birthdate,
 
-$('.squares').on('click', '.square', function() {
-    $(this).css('background-color', getRandomColor());
+        get fullName() {
+            return `${this.firstName} ${this.lastName}`;
+        },
 
-    const cloned = $(this).clone();
+        set fullName(value) {
+            [this.firstName, this.lastName] = value.split(' ');
+        },
 
-    $(this).remove();
-    $('.square').last().after(cloned);
-});
+        get age() {
+            const ms = new Date(this.birthdate);
+            const diff = Date.now() - ms.getTime();
+            const date = new Date(diff);
 
-$('.addTab').on('submit', function(e) {
-    e.preventDefault();
+            return (date.getUTCFullYear() - 1970);
+        },
+    };
+}
 
-    const $inputs = $(`.${this.className} :input`);
-    const tabs = $('.tabs button').length;
-    const $title = $('<button></button>', {['data-target']: `#content_${tabs}`,}).text($($inputs[0]).val());
-    const $content = $('<p></p>', {id: `content_${tabs}`}).text($($inputs[1]).val());
-
-    if ($title.text() && $content.text()) {
-        $('.tabs__buttons').append($title);
-        $('.tabs__content').append($content);
-    }
-
-    if ($('.tabs__buttons button').length === 1) {
-        $('.tabs__content p').addClass('active');
-    }
-
-    $inputs.val('');
-});
-
-$('.tabs__buttons').on('click', 'button', function() {
-    const content = $(this).data().target;
-
-    $('.tabs__content p').removeClass('active');
-    $(content).addClass('active');
-});
+const stud = createStudent('Kostya', 'Penyavskiy', '1998.08.25');
+stud.fullName = 'Uzhe NeKostya';
