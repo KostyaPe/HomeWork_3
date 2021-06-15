@@ -1,5 +1,5 @@
-class TodoList {
-    #todos;
+class List {
+    _list = [];
 
     static isTodoExist(todos , name) {
         if (!todos.some(el => el.task === name)) {
@@ -9,16 +9,40 @@ class TodoList {
         throw new Error('Task is already exist.');
     }
 
-    constructor() {
-        this.#todos = [{task: 'drink', isDone: false}];
+    addTodo(taskName) {
+        List.isTodoExist(this._list, taskName);
+
+        this.list = [...this._list, {task: taskName, isDone: false}];
     }
 
-    get todoList() {
-        return this.#todos;
+    removeTodo(taskName) {
+        this.list = this._list.filter(({ task }) => task !== taskName);
     }
 
+    editTask(taskName, newTaskName) {
+        List.isTodoExist(this._list, newTaskName);
+
+        this.list = this._list.map(todo => {
+            todo.task = todo.task === taskName ? newTaskName : todo.task;
+
+            return todo;
+        });
+    }
+
+    get list() {
+        return this._list;
+    }
+
+    set list(newState) {
+        const isSave = confirm('Do you want save changes?');
+
+        this._list = isSave ? newState : this._list;
+    }
+}
+
+class TodoList extends List {
     get info() {
-        return this.#todos.reduce((prev, curr) => {
+        return this._list.reduce((prev, curr) => {
             const increaseByOne = 1;
             const noIncrease = 0;
 
@@ -27,40 +51,14 @@ class TodoList {
 
             return prev;
         }, {
-            tasks: this.#todos.length,
+            tasks: this._list.length,
             done: 0,
             remain: 0,
         });
     }
 
-    set todoList(newState) {
-        const isSave = confirm('Do you want save changes?');
-
-        this.#todos = isSave ? newState : this.#todos;
-    }
-
-    addTodo(taskName) {
-        TodoList.isTodoExist(this.#todos, taskName);
-
-        this.todoList = [...this.#todos, {task: taskName, isDone: false}];
-    }
-
-    removeTodo(taskName) {
-        this.todoList = this.#todos.filter(({ task }) => task !== taskName);
-    }
-
-    editTask(taskName, newTaskName) {
-        TodoList.isTodoExist(this.#todos, newTaskName);
-
-        this.todoList = this.#todos.map(todo => {
-            todo.task = todo.task === taskName ? newTaskName : todo.task;
-
-            return todo;
-        });
-    }
-
     editStatus(taskName, status) {
-        this.todoList = this.#todos.map(todo => {
+        this.list = this._list.map(todo => {
             if (todo.task === taskName) {
                 todo.isDone = status;
             }
@@ -75,8 +73,9 @@ const list = new TodoList();
 list.addTodo('walk');
 list.addTodo('ride');
 list.addTodo('sleep');
-list.addTodo('sing');
-list.removeTodo('sing');
-list.editStatus('walk', true);
-list.editStatus('sleep', true);
-list.editTask('sleep', 'take a shower');
+
+const secondList = new TodoList();
+
+secondList.addTodo('task1');
+secondList.addTodo('task2');
+secondList.addTodo('task3');
